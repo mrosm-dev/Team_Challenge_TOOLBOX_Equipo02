@@ -250,12 +250,12 @@ def plot_features_cat_regression(data:pd.DataFrame, target_col:str, columns:list
                 _, axs = plt.subplots(ncols=min(4, len(valores)-div*4), figsize = (5*ncols, 5))
                 for i, ax in enumerate(axs):
                     idx = div * 4 + i
-                    sns.histplot(data[data[columna] == valores[idx]], x=target_col, ax=ax, fill=True, alpha=0.3)
+                    sns.histplot(data[data[columna] == valores[idx]], x=target_col, ax=ax, fill=True, alpha=0.3, kde=True)
                     ax.set_xlabel(valores[idx])
                     if i != 0:
                         ax.set_ylabel('')
                     else:
-                        ax.set_ylabel(f'{columna} - p-value = 0.005')
+                        ax.set_ylabel(columna)
 
     else:
         divisiones = math.ceil(len(columnas_pintar) / 2)
@@ -264,9 +264,8 @@ def plot_features_cat_regression(data:pd.DataFrame, target_col:str, columns:list
             _, axs = plt.subplots(ncols=min(2, len(columnas_pintar)-div*2), figsize = (10*ncols, 10))
             for i, ax in enumerate(axs):
                 idx = div * 2 + i
-                sns.histplot(data, x=target_col, hue=columnas_pintar[idx], ax=ax, fill=True, alpha=0.3)
-
-                ax.set_xlabel(f'{columnas_pintar[idx]} - p-value = 0.005')
+                sns.histplot(data, x=target_col, hue=columnas_pintar[idx], ax=ax, fill=True, alpha=0.3, kde=True)
+                ax.set_xlabel(columnas_pintar[idx])
                 ax.set_ylabel('')
     
     return columnas_pintar
